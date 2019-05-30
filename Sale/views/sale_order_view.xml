@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sorp_view_order_form" model="ir.ui.view">
+        <field name="name">sale.form</field>
+        <field name="model">sale.task</field>
+        <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <div class="oe_button_box">
+              <button name="compute_sum_total"
+                      string="Balnce"
+                      type="object"
+                      icon="fa-dollar"/>
+            </div> 
+            <group>
+              <!-- Add your fields here -->
+              <field name="sale_no"/>
+              <field name="company" widget="selection"/>
+              <field name="types" widget="radio"/>
+              <field name="quantity" required="True" attrs="{'invisible': [('types','=','vou')]}"/>
+            </group>
+            <notebook>
+              <page string="Sale Line" name="sale_line" attrs="{'invisible': [('types','=','cre')]}">
+                <field name="line_ids">
+                  <tree editable="bottom">
+                    <field name="voucher_amount" required="True"/>
+                    <field name="quantity" required="True"/>
+                    <field name="total"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+            <br/>
+            <group class="oe_subtotal_footer oe_right" colspan="4" attrs="{'invisible': [('types','=','cre')]}">
+            <field name="sum_total"/>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record id="sale_task_view_tree" model="ir.ui.view">
+      <field name="name">sale.task.view.tree</field>
+      <field name="model">sale.task</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="sale_no"/>
+              <field name="company"/>
+              <field name="types"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="sale_task_action" model="ir.actions.act_window">
+      <field name="name">Sale</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">sale.task</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_type">form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+        </p><p>
+
+        </p>
+      </field>
+    </record>
+
+    
+
+    <!-- balance.balance form view -->
+    <record id="balance_view_form" model="ir.ui.view">
+      <field name="name">Balance</field>
+      <field name="model">balance.balance</field>
+      <field name="arch" type="xml">
+        <form string="Balances">
+          <sheet>
+            <group string="MTN Balance">
+              <field name="balance_mtn"/>
+            </group>
+            <br/>
+            <group string="Sudani Balance">
+              <field name="balance_sudani"/>
+            </group>
+            <br/>
+            <group string="Zain Balance">
+              <field name="balance_zain"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- model.name tree view -->
+    <record id="balance_view_tree" model="ir.ui.view">
+      <field name="name">balance.balance.view.tree</field>
+      <field name="model">balance.balance</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="balance_mtn"/>
+          <field name="balance_sudani"/>
+          <field name="balance_zain"/>
+
+        </tree>
+      </field>
+    </record>
+
+    <!-- balance.balance action window -->
+    <record id="balance_action" model="ir.actions.act_window">
+      <field name="name">Balance</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">balance.balance</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_type">form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          <!-- Add Text Here -->
+        </p><p>
+          <!-- More details about what a user can do with this object will be OK --> 
+        </p>
+      </field>
+    </record>
+
+
+    <!-- company.company form view -->
+    <record id="company_view_form" model="ir.ui.view">
+      <field name="name">company.view.form</field>
+      <field name="model">company.company</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <group>
+              <!-- Add your fields here -->
+              <field name="name"/>
+              <field name="address"/>
+              <field name="city"/>
+              <field name="country"/>
+              
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!--  tree view -->
+    <record id="company_view_tree" model="ir.ui.view">
+      <field name="name">company.view.tree</field>
+      <field name="model">company.company</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- model.name action window -->
+    <record id="company_action" model="ir.actions.act_window">
+      <field name="name">company</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">company.company</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_type">form</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          <!-- Add Text Here -->
+        </p><p>
+          <!-- More details about what a user can do with this object will be OK --> 
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="sales_menu_root" name="POfS" sequence="1"/>
+    <menuitem id="sales_menu_categ" name="POfS" parent="sales_menu_root" sequence="1"/>
+    <menuitem id="sale_task_menu_act" name="Sale" parent="sales_menu_categ" action="sale_task_action" sequence="1"/>
+
+    <menuitem id="configurations_menu_categ" name="Configurations" parent="sales_menu_root" groups="group_sale_manager" sequence="2"/>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="companies_menu_act" name="Companies" parent="configurations_menu_categ" action="company_action" sequence="1"/>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="balance_menu_act" name="Balances" parent="configurations_menu_categ" action="balance_action" sequence="2"/>
+</odoo>

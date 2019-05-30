@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+
+pos_demo_user, Model user acces,model_SaleTask,pos.group_user,1,1,1,1
+pos_demo_admin, Model user acces,model_SaleTask,pos.group_admin,1,1,1,1
+
+access_sale_line,access_sale_line,model_sale_line,pos.group_user,1,1,1,1
+access_sale_line,access_sale_line,model_sale_line,pos.group_admin,1,1,1,1
+
+access_company,access_company,model_company,pos.group_user,1,1,1,1
+access_company,access_company,model_company,pos.group_admin,1,1,1,1
+
+access_balance,access_balance,model_balance,pos.group_user,1,1,1,1
+access_balance,access_balance,model_balance,pos.group_admin,1,1,1,1
+
+access_res_partner,access_res_partner,model_res_partner,souq.group_user,1,1,1,1
+access_res_partnerz,access_res_partnerz,model_res_partner,souq.group_admin,1,1,1,1
